@@ -45,7 +45,7 @@ from .tasks import send_mail_to_all, print_no, print_clgname
 #     return HttpResponse('done')
 
 class CollegeView(APIView):
-    #permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
 
     def post(self, request):
         college_data = request.data
@@ -90,7 +90,7 @@ class CollegeView(APIView):
 
 
 class StudentView(APIView):
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
 
 
     def post(self, request):
