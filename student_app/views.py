@@ -52,7 +52,8 @@ class CollegeView(APIView):
         serializer = CollegeSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             college = CollegeService.execute({"college_data": request.data})
-            return Response(serializer.data, status=201)
+            serializer_data = CollegeSerializer(college)
+            return Response(serializer_data.data, status=201)
         return Response(serializer.errors, status=400)
 
     def get(self, request, pk=None):  # pk is used to get clg id
