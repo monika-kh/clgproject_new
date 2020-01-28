@@ -45,7 +45,7 @@ from .tasks import send_mail_to_all, print_no, print_clgname
 #     return HttpResponse('done')
 
 class CollegeView(APIView):
-    permission_classes = (IsAuthenticated,)
+    #permission_classes = (IsAuthenticated,)
 
     def post(self, request):
         college_data = request.data
@@ -78,9 +78,10 @@ class CollegeView(APIView):
         serializer = CollegeSerializer(college_put, data=request.data)
         if serializer.is_valid():
             # PutCollegeService.execute({'pk': pk})
-            PutCollegeService.execute(
-                {'college_put': college_put, 'data': request.data}
+            college_dt = PutCollegeService.execute(
+                {'data': request.data, 'pk': pk}
             )  # data sent to services
+            serializer = CollegeSerializer(college_dt)
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

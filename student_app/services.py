@@ -22,10 +22,8 @@ def send_varification_email(subject, message, email):
         pass
 
 
-
 class CollegeService(Service):
     def process(self):
-
         clg_data = self.data
         data = clg_data.get("college_data")
 
@@ -60,8 +58,8 @@ class DeleteCollegeService(Service):
 class PutCollegeService(Service):
     def process(self):
         college_put = self.data  # data received from views
-        clg = college_put.get('data')
-        pk = clg.get('id')
+        clg = self.data.get('data')
+        pk = self.data.get('pk')
 
         clg_put = College.objects.get(pk=pk)
         clg_name = clg.get('college_name')
@@ -98,7 +96,6 @@ class CreateStudentService(Service):
 
         clg_obj = College.objects.get(college_name=data.get("student_data").get("college_name"))
 
-
         student_obj = Student.objects.create(
             college=clg_obj,
             first_name=student_data.get('college_student')[0].get('first_name'),
@@ -108,7 +105,7 @@ class CreateStudentService(Service):
             username=student_data.get('college_student')[0].get("username"),
             email=student_data.get('college_student')[0].get("email"),
             address=student_data.get('college_student')[0].get("address"),
-            #college=student_data.get('college_student')[0].get("address"),
+            # college=student_data.get('college_student')[0].get("address"),
         )
         student_obj.set_password(student_data.get('college_student')[0].get("password"))
         student_obj.save()
@@ -124,9 +121,6 @@ class CreateStudentService(Service):
         # message = "Here is message"
         # send_mail(subject, message, from_email=settings.EMAIL_HOST_USER,recipient_list=[to_email], html_message=message)
         # return student_obj
-
-
-
 
 
 class GetRelatedStudentService(Service):
@@ -147,10 +141,9 @@ class DeleteRelatedStudentService(Service):
         std_dlt.delete()
 
 
-
 class IndexService(Service):
     def process(self):
-        print_no.delay(1,2001)
+        print_no.delay(1, 2001)
 
 
 class PrintCollegeByNameService(Service):
@@ -166,33 +159,4 @@ class PrintCollegeByNameService(Service):
         #     create_obj = College.objects.create(college_name=clg_by_name,
         #                                     city=clg_by_city,
         #                                     state=clg_by_state)
-              #return create_obj
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        # return create_obj
