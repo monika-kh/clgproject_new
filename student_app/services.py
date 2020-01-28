@@ -34,7 +34,7 @@ class CollegeService(Service):
             city=data.get("city"),
             state=data.get("state"),
         )
-        return clg_data
+        return clg_obj
 
 
 class GetCollegeService(Service):
